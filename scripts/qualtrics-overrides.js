@@ -1,4 +1,5 @@
 var that = null;
+var set = false;
 
 Qualtrics.SurveyEngine.addOnload(function() {
     that = this;
@@ -14,17 +15,28 @@ document.getElementById("speedtest-frame").addEventListener("load", function() {
 });
 
 function receiveMessage(event) {
-    if (that !== null && event.data !== null) {
+    if (that !== null && event.data !== null && !set) {
         let speedtestData = JSON.parse(event.data);
+        set = true;
 
-        console.log(
-            `Payload of speedtest data received. Download speed: ${speedtestData.dlStatus}`
+        console.log(speedtestData.dlStatus);
+
+        Qualtrics.SurveyEngine.setEmbeddedData(
+            "dl_speed",
+            speedtestData["dlStatus"]
         );
-
-        that.setEmbeddedData("dl_speed", speedtestData["dlStatus"]);
-        that.setEmbeddedData("ul_speed", speedtestData["ulStatus"]);
-        that.setEmbeddedData("ping", speedtestData["pingStatus"]);
-        that.setEmbeddedData("jitter", speedtestData["jitterStatus"]);
+        Qualtrics.SurveyEngine.setEmbeddedData(
+            "ul_speed",
+            speedtestData["ulStatus"]
+        );
+        Qualtrics.SurveyEngine.setEmbeddedData(
+            "ping",
+            speedtestData["pingStatus"]
+        );
+        Qualtrics.SurveyEngine.setEmbeddedData(
+            "jitter",
+            speedtestData["jitterStatus"]
+        );
         that.clickNextButton();
     }
 }
