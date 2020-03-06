@@ -37,6 +37,10 @@ function receiveMessage(event) {
             "jitter",
             speedtestData["jitterStatus"]
         );
+        Qualtrics.SurveyEngine.setEmbeddedData(
+            "ip_address",
+            speedtestData["ip"]
+        );
         that.clickNextButton();
     }
 }
