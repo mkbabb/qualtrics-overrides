@@ -1,4 +1,6 @@
+// Saves the Qualtrics context for later.
 var that = null;
+// Prevents the window message from being posted multiple times.
 var set = false;
 
 Qualtrics.SurveyEngine.addOnload(function() {
@@ -11,6 +13,7 @@ Qualtrics.SurveyEngine.addOnUnload(function() {});
 
 document.getElementById("speedtest-frame").addEventListener("load", function() {
     var w = this.contentWindow;
+    // Initialize the call to the speed test app.
     w.postMessage("start", "https://mbabb.fi.ncsu.edu/speedtest/");
 });
 
@@ -21,6 +24,12 @@ function receiveMessage(event) {
 
         console.log(speedtestData.dlStatus);
 
+        /**
+         * The below sets the embedded data fields within the survey with the
+         * syntax of (embedded_data_filed_name, value).
+         * Note that the Qualtrics survey context of 'that' cannot be used here:
+         * one must used the 'Qualtrics.SurveyEngine' object.
+         */
         Qualtrics.SurveyEngine.setEmbeddedData(
             "dl_speed",
             speedtestData["dlStatus"]
