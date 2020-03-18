@@ -1,0 +1,21 @@
+:root {
+    --__color-primary: white;
+    --__color-secondary: #2ece2e;
+}
+
+#ProgressBarFillContainer {
+    background-color: #666 !important;
+}
+
+.ProgressBarContainer {
+    margin-top: 20px !important;
+}
+
+.test-iframe {
+    border: none !important;
+    display: block !important;
+    width: 100% !important;
+    height: 35rem !important;
+    margin: 0;
+    overflow: hidden;
+}
