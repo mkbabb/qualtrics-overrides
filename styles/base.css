@@ -3,16 +3,6 @@
   --__color-secondary: #2ece2e;
 }
 
-#LogoContainer {
-  background-color: #c00 !important;
-}
-
-.ValidationError {
-  font-weight: bold !important;
-  color: magenta !important;
-  background: none !important;
-}
-
 #ProgressBarFillContainer {
   background-color: #666 !important;
 }
@@ -21,6 +11,11 @@
   margin-top: 20px !important;
 }
 
-.drillDownSelectDropDown {
-  color: black !important;
+.test-iframe {
+  border: none !important;
+  display: block !important;
+  width: 100% !important;
+  height: 35rem !important;
+  margin: 0;
+  overflow: hidden;
 }
