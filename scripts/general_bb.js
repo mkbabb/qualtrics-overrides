@@ -16,7 +16,7 @@ Qualtrics.SurveyEngine.addOnUnload(function() {});
 document.getElementById(iframeID).addEventListener("load", function() {
     var w = this.contentWindow;
     // Initialize the call to the speed test app; the below calls the dev version thereof.
-    w.postMessage("start", "https://mbabb.fi.ncsu.edu/speedtest/");
+    w.postMessage("start", "https://speedtest.fi.ncsu.edu/general_bb/");
 });
 
 function receiveMessage(event) {
