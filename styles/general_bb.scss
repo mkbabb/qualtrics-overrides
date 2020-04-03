@@ -2,12 +2,18 @@
     --__color-primary: white;
     --__color-secondary: #2ece2e;
     --__background-color: #333;
+    --_color-warning: orange;
 }
 
 .ValidationError {
+    font-size: 22px !important;
     font-weight: bold !important;
-    color: orange !important;
+    color: var(--_color-warning) !important;
     background: none !important;
+}
+
+.Skin .QuestionOuter.Highlight .Inner {
+    border-color: var(--_color-warning) !important;
 }
 
 #ProgressBarFillContainer {
