@@ -5,15 +5,16 @@ var set = false;
 // The speedtest iframe name. This must match the Qualtrics HTML!
 var iframeID = "speedtest-frame";
 
-Qualtrics.SurveyEngine.addOnload(function() {
+Qualtrics.SurveyEngine.addOnload(function () {
     that = this;
+    window.scrollTo(0, 0);
 });
 
-Qualtrics.SurveyEngine.addOnReady(function() {});
+Qualtrics.SurveyEngine.addOnReady(function () {});
 
-Qualtrics.SurveyEngine.addOnUnload(function() {});
+Qualtrics.SurveyEngine.addOnUnload(function () {});
 
-document.getElementById(iframeID).addEventListener("load", function() {
+document.getElementById(iframeID).addEventListener("load", function () {
     var w = this.contentWindow;
     // Initialize the call to the speed test app; the below calls the dev version thereof.
     w.postMessage("start", "https://speedtest.fi.ncsu.edu/general_bb/");
