@@ -4,10 +4,25 @@
     --__background-color: #333;
 }
 
+.iframe-container {
+    overflow: hidden;
+    padding-top: 56.25%;
+    position: relative;
+}
+
+.iframe-container iframe {
+    border: 0;
+    height: 100%;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
+}
+
 .ValidationError {
-    font-weight: bold !important;
-    color: orange !important;
     background: none !important;
+    color: orange !important;
+    font-weight: bold !important;
 }
 
 #ProgressBarFillContainer {
@@ -25,7 +40,7 @@
 .Skin input[type="text"],
 .Skin select,
 .Skin textarea {
-    background-color: var(--__color-primary) !important;
     background: var(--__background-color) !important;
+    background-color: var(--__color-primary) !important;
     color: var(--__color-primary) !important;
 }

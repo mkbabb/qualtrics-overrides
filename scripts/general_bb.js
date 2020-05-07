@@ -17,12 +17,16 @@ Qualtrics.SurveyEngine.addOnUnload(function () {});
 document.getElementById(iframeID).addEventListener("load", function () {
     var w = this.contentWindow;
     // Initialize the call to the speed test app; the below calls the dev version thereof.
-    w.postMessage("start", "https://speedtest.fi.ncsu.edu/general_bb/");
+    w.postMessage("start", "https://mbabb.fi.ncsu.edu/speedtest/");
 });
 
 function receiveMessage(event) {
     // If our Qualtrics context is defined, and we've yet to set any embedded data, continue onward.
-    if (that !== null && event.data !== null && !set) {
+    console.log(event.data);
+    if (that !== null && event.data === "next") {
+        console.log("Progressing onward");
+        that.clickNextButton();
+    } else if (that !== null && event.data !== null && !set) {
         // Coalesce our speed test data object into a dictionary.
         let speedtestData = JSON.parse(event.data);
         set = true;
@@ -56,8 +60,6 @@ function receiveMessage(event) {
             "ip_address",
             speedtestData["ip"]
         );
-        // For the auto progression; simulates a click of the next button based on the 'that' context.
-        that.clickNextButton();
     }
 }
 window.addEventListener("message", receiveMessage, false);
