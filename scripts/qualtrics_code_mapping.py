@@ -1,16 +1,9 @@
-import itertools
-import math
+import json
 import os
-import shutil
-from glob import iglob
+import re
 from typing import *
 
-import numpy as np
 import pandas as pd
-import json
-import re
-
-from utils import *
 
 REGEX_QUESTION = re.compile("^(Q\d+(\.\d+))")
 REGEX_KEY_VALUE_SPLIT = re.compile("^(.*)\((\d+)\)")
