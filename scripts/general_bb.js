@@ -63,3 +63,24 @@ function receiveMessage(event) {
     }
 }
 window.addEventListener("message", receiveMessage, false);
+
+var iframes = document.querySelectorAll("iframe");
+
+iframes.forEach((value, key, parent) => {
+    value.setAttribute("ratio", value.height / value.width);
+    value.removeAttribute("height");
+    value.removeAttribute("width");
+});
+
+function resizeIframes() {
+    iframes.forEach((value, key, parent) => {
+        var width = parent.width;
+        value.width = width;
+        value.height = width * parseFloat(value.getAttribute("ratio"));
+    });
+}
+
+window.addEventListener("resize", function () {
+    resizeIframes();
+});
+resizeIframes();
