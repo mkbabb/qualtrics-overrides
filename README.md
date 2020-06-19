@@ -1,11 +1,11 @@
-# qualtrics_overrides
+# Qualtrics Overrides
 
 This repository contains the various overrides and requisite files for the
 Qualtrics surveys produced by the FI.
 
 ## Table of Contents
 
-- [qualtrics_overrides](#qualtrics_overrides)
+- [Qualtrics Overrides](#qualtrics-overrides)
   - [Table of Contents](#table-of-contents)
   - [TODO:](#todo)
   - [HTML](#html)
@@ -18,18 +18,18 @@ Qualtrics surveys produced by the FI.
 
 ## HTML
 
-Within html/, the necessary HTML code for the individual speedtest iframe is
-located. The requisite iframe ID is highlighted below: note, the iframe ID here
-must match the iframe ID within the corresponding JavaScript.
+Within [html](html/), the necessary HTML code for the individual speedtest
+iframe is located. The requisite iframe ID is highlighted below: note, the
+iframe ID here must match the iframe ID within the corresponding JavaScript.
 
 ![](docs/html.gif?raw=true "Example html usage")
 
 ## Scripts
 
-Within scripts/, housed are the custom scripts to be interpolated into the
-individual survey questions. Of note, the _speedtest.js_ file is used facilitate
-the communication between the outer-most survey element and the child iframe
-element thereof.
+Within [scripts](scripts/), housed are the custom scripts to be interpolated
+into the individual survey questions. Of note, the _speedtest.js_ file is used
+facilitate the communication between the outer-most survey element and the child
+iframe element thereof.
 
 Below is an example of how the custom JS may be called and thereby used in
 Qualtrics. Notice the the iframeID variable, whereof's usage is stipulated by
@@ -44,7 +44,7 @@ located, how they're added, and how they're deleted.
 ![](docs/embedded_data.gif?raw=true "Example embedded data usage")
 
 Regarding embedded data, a typical speedtest execution is followed by a
-concomitant ipinfo API call: ipinfo returns a JSON object telemetry related to
+concomitant [ipinfo](https://ipinfo.io/) API call: ipinfo returns a JSON object telemetry related to
 an input IP address; for more information related to the ipinfo API, see:
 <https://ipinfo.io/developers>. Qualtrics allows for the parsing and subsequent
 setting of an arbitrary embedded data field thereon. An example is shown below:
