@@ -27,16 +27,18 @@ def map_questions(filepath: str) -> Tuple[dict, pd.DataFrame]:
             question_match = re.search(REGEX_QUESTION, line)
             block_found |= question_match != None
 
-            if (question_match is not None):
+            if question_match is not None:
                 questions[question] = question_dict
                 question_dict = {}
                 question = question_match.group(0)
-            elif (block_found):
+            elif block_found:
                 key_value_match = re.match(REGEX_KEY_VALUE_SPLIT, line)
-                if (key_value_match is not None):
+                if key_value_match is not None:
                     try:
-                        value, key = str(key_value_match.group(
-                            1)).strip(), int(key_value_match.group(2))
+                        value, key = (
+                            str(key_value_match.group(1)).strip(),
+                            int(key_value_match.group(2)),
+                        )
                         question_dict[key] = value
                     except TypeError:
                         pass
@@ -51,14 +53,13 @@ def map_questions(filepath: str) -> Tuple[dict, pd.DataFrame]:
 
 
 def main():
-    '''
+    """
     Takes in an input qualtrics code mapping file and returns the numeric
     code values mapped to their string counterparts.
     Outputs both a dictionary thereof in JSON and a CSV for easy data base joining.
-    '''
+    """
     parser = argparse.ArgumentParser()
-    parser.add_argument("-i", "--input",
-                        help="Input file path")
+    parser.add_argument("-i", "--input", help="Input file path")
     args = parser.parse_args()
 
     filepath = args.input
