@@ -1,0 +1,23 @@
+{
+  "name": "qualtrics_overrides",
+  "version": "1.0.0",
+  "description": "This repository contains the various overrides and requisite files for the Qualtrics surveys produced by the FI.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mkbabb/qualtrics_overrides.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mkbabb/qualtrics_overrides/issues"
+  },
+  "homepage": "https://github.com/mkbabb/qualtrics_overrides#readme",
+  "devDependencies": {
+    "eslint": "^7.4.0",
+    "eslint-config-google": "^0.14.0"
+  }
+}

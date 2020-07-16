@@ -3,7 +3,7 @@ const qs = Qualtrics.SurveyEngine;
 const geolocationOptions = {
     enableHighAccuracy: true,
     timeout: 5000,
-    maximumAge: 0,
+    maximumAge: 0
 };
 
 const getCurrentPosition = function () {

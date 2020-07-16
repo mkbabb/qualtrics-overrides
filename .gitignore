@@ -1,3 +1,9 @@
 .mypy_cache/
 data/
 .vscode/
+
+.prettierrc
+/assets/
+
+.DS_Store
+node_modules
