@@ -29,6 +29,8 @@ const writePosition = function (pos) {
 };
 
 qs.addOnload(function () {
+    this.hideNextButton();
+
     getCurrentPosition()
         .then(writePosition)
         .catch((err) => {
