@@ -1,4 +1,3 @@
-"use strict";
 // @ts-expect-error
 const qs = Qualtrics.SurveyEngine;
 const backendBaseURL = "https://speedtest.fi.ncsu.edu/general_bb/";

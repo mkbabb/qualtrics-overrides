@@ -1,20 +1,38 @@
 declare namespace Qualtrics {
-    export type SurveyEngineFunction = (this: any) => void;
+    export type SurveyEngineFunction = (this: Qualtrics.SurveyEngine) => void;
+    export interface QuestionInfo {
+        QuestionID: string;
+        QuestionText: string;
+        QuestionType: string;
+
+        Choices: {
+            RecodeValue: string;
+            VariableName: string;
+            Text: string;
+            Exclusive: boolean;
+        };
+    }
 
     export interface SurveyEngine {
+        /**
+         * Adds embedded data to the page
+         */
         addEmbeddedData: (key: string, value: string) => void;
-
+        /**
+         * Adds an observer/listener to the click event on the question. Rather than calling addOnClick directly, this method will be called automatically by the addOnLoad method. You only need to assign a function to the questionclick property and the Survey Engine will take care of it for you.
+         */
         addOnClick: (f: SurveyEngineFunction) => void;
-        addOnload: (f: SurveyEngineFunction) => void;
-        addOnReady: (f: SurveyEngineFunction) => void;
-        addOnPageSubmit: (f: SurveyEngineFunction) => void;
-        addOnUnload: (f: SurveyEngineFunction) => void;
 
+        addOnPageSubmit: (f: SurveyEngineFunction) => void;
+
+        addOnReady: (f: SurveyEngineFunction) => void;
+
+        addOnUnload: (f: SurveyEngineFunction) => void;
+        addOnload: (f: SurveyEngineFunction) => void;
         clickNextButton: VoidFunction;
         disableNextButton: VoidFunction;
         disablePreviousButton: VoidFunction;
         displayErrorMessage: (msg: string) => void;
-
         enableNextButton: VoidFunction;
         enablePreviousButton: VoidFunction;
         getAnswers: () => Array<any>;
@@ -30,24 +48,22 @@ declare namespace Qualtrics {
             subId: string
         ) => boolean;
         getChoiceRecodeValue: (choiceId: string) => void;
+        getChoiceValue: (choiceId: string, subId?: string) => string;
+        getChoiceVariableName: (choiceId: string) => string;
         getChoices: () => Array<any>;
         getChoicesFromRecodeValue: (recodeVal: string) => Array<any>;
         getChoicesFromVariableName: (varName: string) => Array<any>;
-        getChoiceValue: (choiceId: string, subId?: string) => string;
-        getChoiceVariableName: (choiceId: string) => string;
         getPostTag: () => string | null;
         getQuestionContainer: () => HTMLElement;
         getQuestionDisplayed: () => boolean;
-        getQuestionInfo: () => object | null;
+        getQuestionInfo: () => QuestionInfo | null;
         getQuestionTextContainer: () => HTMLElement;
-        getSelectedAnswers: () => Array<any>;
         getSelectedAnswerValue: (choiceId: object) => string;
+        getSelectedAnswers: () => Array<any>;
         getTextValue: (choiceId?: string) => string;
-
         hideChoices: VoidFunction;
         hideNextButton: VoidFunction;
         hidePreviousButton: VoidFunction;
-
         setChoiceAnswerValue: (
             choiceId: string,
             answerId: string,
@@ -65,5 +81,7 @@ declare namespace Qualtrics {
             value?: string
         ) => boolean;
         setEmbeddedData: (key: string, value: string) => void;
+        showNextButton(): VoidFunction;
+        showPreviousButton: VoidFunction;
     }
 }

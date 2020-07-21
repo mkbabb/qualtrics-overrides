@@ -21,3 +21,5 @@ qs.addOnload(function () {
 qs.addOnReady(function () {});
 
 qs.addOnUnload(function () {});
+
+export {}

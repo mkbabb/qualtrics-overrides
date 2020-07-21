@@ -1,35 +1,42 @@
 // @ts-expect-error
 const qs = Qualtrics.SurveyEngine;
-const geolocationOptions = {
-    enableHighAccuracy: true,
-    timeout: 5000,
-    maximumAge: 0
-};
-const getCurrentPosition = function () {
-    return new Promise((resolve, reject) => {
-        return navigator.geolocation.getCurrentPosition(resolve, reject, geolocationOptions);
-    });
-};
-const writePosition = function (pos) {
-    const coords = pos.coords;
-    qs.setEmbeddedData("lat", String(coords.latitude));
-    qs.setEmbeddedData("long", String(coords.longitude));
-    qs.setEmbeddedData("geo_accuracy", String(coords.accuracy));
-    console.log("Your current position is:");
-    console.log(`Latitude : ${coords.latitude}`);
-    console.log(`Longitude: ${coords.longitude}`);
+const iframeId = "speedtest-frame";
+const speedtestURL = "https://speedtest.fi.ncsu.edu/testing/";
+const WINDOW_KEY = "password";
+const receiveMessage = function (event) {
+    const windowMessage = event.data;
+    console.log(windowMessage);
+    if (windowMessage != null && windowMessage.key === WINDOW_KEY) {
+        if (windowMessage.message === "complete") {
+            const { dlStatus, ulStatus, pingStatus, jitterStatus, ip } = windowMessage.data;
+            qs.setEmbeddedData("dl_speed", dlStatus);
+            qs.setEmbeddedData("ul_speed", ulStatus);
+            qs.setEmbeddedData("ping", pingStatus);
+            qs.setEmbeddedData("jitter", jitterStatus);
+            qs.setEmbeddedData("ip_address", ip);
+            this.showNextButton();
+        }
+        else if (windowMessage.message === "next") {
+            this.clickNextButton();
+        }
+    }
 };
 qs.addOnload(function () {
+    window.addEventListener("message", receiveMessage.bind(this));
     this.hideNextButton();
-    getCurrentPosition()
-        .then(writePosition)
-        .catch((err) => {
-        qs.setEmbeddedData("geo_error_code", err.code);
-        console.warn(`ERROR(${err.code}): ${err.message}`);
-    })
-        .finally(() => {
-        this.clickNextButton();
-    });
+    const windowMessage = {
+        message: "start",
+        key: "password",
+        data: {}
+    };
+    const start = function () {
+        document.getElementById(iframeId).addEventListener("load", function (event) {
+            const iframe = event.target;
+            console.log(iframe.id);
+            iframe.contentWindow.postMessage(windowMessage, speedtestURL);
+        });
+    };
+    setTimeout(start, 1000);
 });
 qs.addOnReady(function () { });
 qs.addOnUnload(function () { });
