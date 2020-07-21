@@ -1,10 +1,11 @@
-const qs = Qualtrics.SurveyEngine;
+// @ts-expect-error
+const qs: Qualtrics.SurveyEngine = Qualtrics.SurveyEngine;
 
 const backendBaseURL = "https://speedtest.fi.ncsu.edu/general_bb/";
 const getIpURL = "backend/getIP.php?cors=1";
 
 const writeIpInfo = function () {
-    req = new XMLHttpRequest();
+    const req = new XMLHttpRequest();
     req.onload = function () {
         const data = JSON.parse(req.responseText);
         qs.setEmbeddedData("ip_address", data.processedString);

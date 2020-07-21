@@ -1,4 +1,5 @@
-const qs = Qualtrics.SurveyEngine;
+// @ts-expect-error
+const qs: Qualtrics.SurveyEngine = Qualtrics.SurveyEngine;
 
 const geolocationOptions = {
     enableHighAccuracy: true,
@@ -7,7 +8,7 @@ const geolocationOptions = {
 };
 
 const getCurrentPosition = function () {
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve: PositionCallback, reject: PositionErrorCallback) => {
         return navigator.geolocation.getCurrentPosition(
             resolve,
             reject,
@@ -16,12 +17,12 @@ const getCurrentPosition = function () {
     });
 };
 
-const writePosition = function (pos) {
+const writePosition = function (pos: Position) {
     const coords = pos.coords;
 
-    qs.setEmbeddedData("lat", coords.latitude);
-    qs.setEmbeddedData("long", coords.longitude);
-    qs.setEmbeddedData("geo_accuracy", coords.accuracy);
+    qs.setEmbeddedData("lat", String(coords.latitude));
+    qs.setEmbeddedData("long", String(coords.longitude));
+    qs.setEmbeddedData("geo_accuracy", String(coords.accuracy));
 
     console.log("Your current position is:");
     console.log(`Latitude : ${coords.latitude}`);
@@ -45,3 +46,5 @@ qs.addOnload(function () {
 qs.addOnReady(function () {});
 
 qs.addOnUnload(function () {});
+
+export {};
