@@ -33,4 +33,3 @@ qs.addOnload(function () {
 });
 qs.addOnReady(function () { });
 qs.addOnUnload(function () { });
-qs.add;

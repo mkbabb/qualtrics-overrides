@@ -47,5 +47,4 @@ qs.addOnReady(function () {});
 
 qs.addOnUnload(function () {});
 
-qs.add
 export {};

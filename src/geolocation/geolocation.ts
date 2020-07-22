@@ -7,14 +7,14 @@ interface IWindowMessage {
 // @ts-expect-error
 const qs: Qualtrics.SurveyEngine = Qualtrics.SurveyEngine;
 const iframeId = "speedtest-frame";
-const speedtestURL = "https://speedtest.fi.ncsu.edu/testing/";
+const speedtestURL = "https://speedtest.fi.ncsu.edu/testing/sites/index.html";
 
 const WINDOW_KEY = "password";
 
 const receiveMessage = function (event: MessageEvent) {
     const windowMessage: IWindowMessage = event.data;
     console.log(windowMessage);
-
+    
     if (windowMessage != null && windowMessage.key === WINDOW_KEY) {
         if (windowMessage.message === "complete") {
             const {
@@ -40,7 +40,6 @@ const receiveMessage = function (event: MessageEvent) {
 
 qs.addOnload(function () {
     window.addEventListener("message", receiveMessage.bind(this));
-
     this.hideNextButton();
 
     const windowMessage: IWindowMessage = {
@@ -49,19 +48,23 @@ qs.addOnload(function () {
         data: {}
     };
 
+    const duration = 1000;
+
     const start = function () {
         document.getElementById(iframeId).addEventListener("load", function (event) {
             const iframe = <HTMLIFrameElement>event.target;
-            console.log(iframe.id);
-            iframe.contentWindow.postMessage(windowMessage, speedtestURL);
+            const post = () => {
+                iframe.contentWindow.postMessage(windowMessage, speedtestURL);
+            };
+            setTimeout(post, duration);
         });
     };
 
-    setTimeout(start, 1000);
+    start();
 });
-
-export {};
 
 qs.addOnReady(function () {});
 
 qs.addOnUnload(function () {});
+
+export {};
