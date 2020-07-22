@@ -14,7 +14,7 @@ const WINDOW_KEY = "password";
 const receiveMessage = function (event: MessageEvent) {
     const windowMessage: IWindowMessage = event.data;
     console.log(windowMessage);
-    
+
     if (windowMessage != null && windowMessage.key === WINDOW_KEY) {
         if (windowMessage.message === "complete") {
             const {
