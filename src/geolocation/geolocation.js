@@ -1,14 +1,14 @@
 // @ts-expect-error
-const qs = Qualtrics.SurveyEngine;
-const iframeId = "speedtest-frame";
-const speedtestURL = "https://speedtest.fi.ncsu.edu/testing/sites/index.html";
-const WINDOW_KEY = "password";
-const receiveMessage = function (event) {
-    const windowMessage = event.data;
+var qs = Qualtrics.SurveyEngine;
+var iframeId = "speedtest-frame";
+var speedtestURL = "https://speedtest.fi.ncsu.edu/testing/sites/index.html";
+var WINDOW_KEY = "password";
+var receiveMessage = function (event) {
+    var windowMessage = event.data;
     console.log(windowMessage);
     if (windowMessage != null && windowMessage.key === WINDOW_KEY) {
         if (windowMessage.message === "complete") {
-            const { dlStatus, ulStatus, pingStatus, jitterStatus, ip } = windowMessage.data;
+            var _a = windowMessage.data, dlStatus = _a.dlStatus, ulStatus = _a.ulStatus, pingStatus = _a.pingStatus, jitterStatus = _a.jitterStatus, ip = _a.ip;
             qs.setEmbeddedData("dl_speed", dlStatus);
             qs.setEmbeddedData("ul_speed", ulStatus);
             qs.setEmbeddedData("ping", pingStatus);
@@ -24,16 +24,16 @@ const receiveMessage = function (event) {
 qs.addOnload(function () {
     window.addEventListener("message", receiveMessage.bind(this));
     this.hideNextButton();
-    const windowMessage = {
+    var windowMessage = {
         message: "start",
         key: "password",
         data: {}
     };
-    const duration = 1000;
-    const start = function () {
+    var duration = 1000;
+    var start = function () {
         document.getElementById(iframeId).addEventListener("load", function (event) {
-            const iframe = event.target;
-            const post = () => {
+            var iframe = event.target;
+            var post = function () {
                 iframe.contentWindow.postMessage(windowMessage, speedtestURL);
             };
             setTimeout(post, duration);

@@ -1,18 +1,24 @@
 // @ts-expect-error
-const qs = Qualtrics.SurveyEngine;
-const backendBaseURL = "https://speedtest.fi.ncsu.edu/general_bb/";
-const getIpURL = "backend/getIP.php?cors=1";
-const writeIpInfo = function () {
-    const req = new XMLHttpRequest();
-    req.onload = function () {
-        const data = JSON.parse(req.responseText);
-        qs.setEmbeddedData("ip_address", data.processedString);
+var qs = Qualtrics.SurveyEngine;
+var getIpURL = "https://speedtest.fi.ncsu.edu/general_bb/backend/getIP.php?cors=1";
+var writeIpInfo = function () {
+    var _this = this;
+    var req = new XMLHttpRequest();
+    req.onreadystatechange = function () {
+        if (req.readyState === 4 && req.status === 200) {
+            var data = JSON.parse(req.responseText);
+            var ip_address = data.processedString;
+            console.log("Found IP address of " + ip_address);
+            qs.setEmbeddedData("ip_address", ip_address);
+            _this.showNextButton();
+        }
     };
-    req.open("GET", backendBaseURL + getIpURL, true);
+    req.open("GET", getIpURL, true);
     req.send();
 };
 qs.addOnload(function () {
-    writeIpInfo();
+    this.hideNextButton();
+    writeIpInfo.bind(this)();
 });
 qs.addOnReady(function () { });
 qs.addOnUnload(function () { });
