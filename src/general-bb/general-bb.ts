@@ -1,45 +1,70 @@
+interface IWindowMessage {
+    message: string;
+    key: string;
+    data: { [arg: string]: string };
+}
+
 // @ts-expect-error
-var qs = Qualtrics.SurveyEngine;
-var iframeId = "speedtest-frame";
-var speedtestURL = "https://speedtest.fi.ncsu.edu/testing/sites/index.html";
-var WINDOW_KEY = "password";
-var receiveMessage = function (event) {
-    var windowMessage = event.data;
+const qs: Qualtrics.SurveyEngine = Qualtrics.SurveyEngine;
+const iframeId = "speedtest-frame";
+const speedtestURL = "https://speedtest.fi.ncsu.edu/testing/sites/index.html";
+
+const WINDOW_KEY = "password";
+
+const receiveMessage = function (event: MessageEvent) {
+    const windowMessage: IWindowMessage = event.data;
     console.log(windowMessage);
+
     if (windowMessage != null && windowMessage.key === WINDOW_KEY) {
         if (windowMessage.message === "complete") {
-            var _a = windowMessage.data, dlStatus = _a.dlStatus, ulStatus = _a.ulStatus, pingStatus = _a.pingStatus, jitterStatus = _a.jitterStatus, ip = _a.ip;
+            const {
+                dlStatus,
+                ulStatus,
+                pingStatus,
+                jitterStatus,
+                ip
+            } = windowMessage.data;
+
             qs.setEmbeddedData("dl_speed", dlStatus);
             qs.setEmbeddedData("ul_speed", ulStatus);
             qs.setEmbeddedData("ping", pingStatus);
             qs.setEmbeddedData("jitter", jitterStatus);
             qs.setEmbeddedData("ip_address", ip);
+
             this.showNextButton();
-        }
-        else if (windowMessage.message === "next") {
+        } else if (windowMessage.message === "next") {
             this.clickNextButton();
         }
     }
 };
+
 qs.addOnload(function () {
     window.addEventListener("message", receiveMessage.bind(this));
     this.hideNextButton();
-    var windowMessage = {
+
+    const windowMessage: IWindowMessage = {
         message: "start",
         key: "password",
         data: {}
     };
-    var duration = 1000;
-    var start = function () {
+
+    const duration = 1000;
+
+    const start = function () {
         document.getElementById(iframeId).addEventListener("load", function (event) {
-            var iframe = event.target;
-            var post = function () {
+            const iframe = <HTMLIFrameElement>event.target;
+            const post = () => {
                 iframe.contentWindow.postMessage(windowMessage, speedtestURL);
             };
             setTimeout(post, duration);
         });
     };
+
     start();
 });
-qs.addOnReady(function () { });
-qs.addOnUnload(function () { });
+
+qs.addOnReady(function () {});
+
+qs.addOnUnload(function () {});
+
+export {};
