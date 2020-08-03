@@ -51,10 +51,11 @@ qs.addOnload(function () {
     const duration = 1000;
 
     const start = function () {
-        document.getElementById(iframeId).addEventListener("load", function (event) {
-            const iframe = <HTMLIFrameElement>event.target;
+        const iframe = <HTMLIFrameElement>document.getElementById(iframeId);
+
+        iframe.addEventListener("load", function (event) {
             const post = () => {
-                iframe.contentWindow.postMessage(windowMessage, speedtestURL);
+                this.contentWindow.postMessage(windowMessage, speedtestURL);
             };
             setTimeout(post, duration);
         });

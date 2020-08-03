@@ -1,8 +1,8 @@
 // @ts-expect-error
 const qs: Qualtrics.SurveyEngine = Qualtrics.SurveyEngine;
 
-const backendURL = "https://speedtest.fi.ncsu.edu/testing/scripts/librespeed/backend";
-const getIp = "getIP.php?cors=1";
+const backendURL = "https://speedtest.fi.ncsu.edu/testing/scripts/librespeed/backend/";
+const getIp = "getIP.php?cors=1?id=${e://Field/ResponseID}";
 
 const getIpURL = backendURL + getIp;
 

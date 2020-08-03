@@ -31,10 +31,11 @@ qs.addOnload(function () {
     };
     var duration = 1000;
     var start = function () {
-        document.getElementById(iframeId).addEventListener("load", function (event) {
-            var iframe = event.target;
+        var iframe = document.getElementById(iframeId);
+        iframe.addEventListener("load", function (event) {
+            var _this = this;
             var post = function () {
-                iframe.contentWindow.postMessage(windowMessage, speedtestURL);
+                _this.contentWindow.postMessage(windowMessage, speedtestURL);
             };
             setTimeout(post, duration);
         });

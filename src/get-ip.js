@@ -1,7 +1,7 @@
 // @ts-expect-error
 var qs = Qualtrics.SurveyEngine;
-var backendURL = "https://speedtest.fi.ncsu.edu/testing/scripts/librespeed/backend";
-var getIp = "getIP.php?cors=1";
+var backendURL = "https://speedtest.fi.ncsu.edu/testing/scripts/librespeed/backend/";
+var getIp = "getIP.php?cors=1?id=${e://Field/ResponseID}";
 var getIpURL = backendURL + getIp;
 var writeIpInfo = function () {
     var req = new XMLHttpRequest();
