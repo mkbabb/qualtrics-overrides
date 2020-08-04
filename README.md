@@ -1,57 +1,63 @@
 # Qualtrics Overrides
 
-This repository contains the various overrides and requisite files for the
-Qualtrics surveys produced by the FI.
+This repo contains the various JavaScript, CSS, and HTML override files used in Qualtrics surveys at @TheFridayInstitute.
+
+Each sub-directory within [src](src/) houses an individual survey's project files. Located there, too, are common JavaScript files shared between surveys, such as [`get-ip.ts`](src/get-ip.ts), plus an additional TypeScript definition file exposing the Qualtrics JavaScript API.
+
+In particular, these overrides are used to serve the files necessary for running our speedtest implementation.
 
 ## Table of Contents
 
 - [Qualtrics Overrides](#qualtrics-overrides)
   - [Table of Contents](#table-of-contents)
-  - [TODO:](#todo)
-  - [HTML](#html)
-  - [Scripts](#scripts)
-  - [Styles](#styles)
+  - [`qualtrics.d.ts`](#qualtricsdts)
+  - [The Speedtest](#the-speedtest)
+    - [Re-intro](#re-intro)
+    - [HTML](#html)
+    - [JavaScript](#javascript)
+    - [CSS?](#css)
 
-## TODO:
+## `qualtrics.d.ts`
 
--   [ ] Change speedtest progression in qualtrics.
+A TypeScript definition, or deceleration file, used to provide a certain level of type safety when using Qualtrics' JavaScript API. Currently, the entire API is represented, but proper comments are describing their functionalities is lacking.
 
-## HTML
+## The Speedtest
 
-Within [html](html/), the necessary HTML code for the individual speedtest
-iframe is located. The requisite iframe ID is highlighted below: note, the
+### Re-intro
+
+The primary use case of this repo is to house files necessary for our embedded speedtest's operation. At a minimum, this requires one HTML survey element with JavaScript code injected therein. Optionally, a series of CSS overrides may be provided.
+
+In addition to the HTML and JavaScript code, two sets of additional survey logic must be added to a given Qualtrics survey: a series of `embedded data` fields, and a one `web service call`.
+
+### HTML
+
+Within a project's `speedtest.html`, the necessary HTML for the individual speedtest
+iframe is located. Note, the
 iframe ID here must match the iframe ID within the corresponding JavaScript.
 
-![](docs/html.gif?raw=true "Example html usage")
+![](assets/html.gif?raw=true "Example html usage")
 
-## Scripts
+### JavaScript
 
 Within [scripts](scripts/), housed are the custom scripts to be interpolated
-into the individual survey questions. Of note, the _speedtest.js_ file is used
-facilitate the communication between the outer-most survey element and the child
-iframe element thereof.
+into the individual speedtest survey block. To facilitate communication between iframe and parent, we utilize the standard [`window.postMessage()`](https://developer.mozilla.org/en-US/docs/Web/API/Window/postMessage); perfect for our purposes, as we control both content domains.
 
-Below is an example of how the custom JS may be called and thereby used in
-Qualtrics. Notice the the iframeID variable, whereof's usage is stipulated by
-the section regarding the HTML.
+Below is an example of how the custom JavaScript may be called and thereby used in
+Qualtrics.
 
-![](docs/js.gif?raw=true "Example js usage")
+![](assets/js.gif?raw=true "Example js usage")
 
 An integral facet used by the JS above is the notion of embedded data fields
-within Qualtrics. Below is an example of where these aforesaid fields are
-located, how they're added, and how they're deleted.
+within Qualtrics.
 
-![](docs/embedded_data.gif?raw=true "Example embedded data usage")
+![](assets/embedded_data.gif?raw=true "Example embedded data usage")
 
-Regarding embedded data, a typical speedtest execution is followed by a
-concomitant [ipinfo](https://ipinfo.io/) API call: ipinfo returns a JSON object telemetry related to
-an input IP address; for more information related to the ipinfo API, see:
-<https://ipinfo.io/developers>. Qualtrics allows for the parsing and subsequent
-setting of an arbitrary embedded data field thereon. An example is shown below:
+Regarding embedded data, a typical speedtest execution is followed by an [ipinfo](https://ipinfo.io/) API call: ipinfo returns JSON object telemetry related to
+an input IP address.
 
-![](docs/ip_info.gif?raw=true "Example ip info data usage")
+![](assets/ip_info.gif?raw=true "Example ip info data usage")
 
-## Styles
+### CSS?
 
 Within styles/, _base.css_ is the basal CSS template, used by all surveys. All
 other files therein are used for their respective surveys; farm for farm, school
@@ -59,6 +65,6 @@ wifi for school wifi, etc..
 
 The custom styles defined here are typically used in Qualtrics as such:
 
-![](docs/external_css.jpg?raw=true "Example style usage")
+![](assets/external_css.jpg?raw=true "Example style usage")
 
 Wherein, the custom CSS is called via the external CSS field.
