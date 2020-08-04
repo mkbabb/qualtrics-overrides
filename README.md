@@ -1,4 +1,4 @@
-# Qualtrics Overrides
+# Qualtrics Overrides 🎨
 
 This repo contains the various JavaScript, CSS, and HTML override files used in Qualtrics surveys at @TheFridayInstitute.
 
@@ -8,7 +8,7 @@ In particular, these overrides are used to serve the files necessary for running
 
 ## Table of Contents
 
-- [Qualtrics Overrides](#qualtrics-overrides)
+- [Qualtrics Overrides 🎨](#qualtrics-overrides-)
   - [Table of Contents](#table-of-contents)
   - [`qualtrics.d.ts`](#qualtricsdts)
   - [The Speedtest](#the-speedtest)
