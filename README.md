@@ -14,7 +14,9 @@ In particular, these overrides are used to serve the files necessary for running
   - [The Speedtest](#the-speedtest)
     - [Re-intro](#re-intro)
     - [HTML](#html)
-    - [JavaScript](#javascript)
+    - [JavaScript (TypeScript)](#javascript-typescript)
+      - [A Note on TypeScript](#a-note-on-typescript)
+      - [`iframe` communicado](#iframe-communicado)
     - [CSS?](#css)
 
 ## `qualtrics.d.ts`
@@ -37,10 +39,22 @@ iframe ID here must match the iframe ID within the corresponding JavaScript.
 
 ![](assets/html.gif?raw=true "Example html usage")
 
-### JavaScript
+### JavaScript (TypeScript)
 
 Within [scripts](scripts/), housed are the custom scripts to be interpolated
-into the individual speedtest survey block. To facilitate communication between iframe and parent, we utilize the standard [`window.postMessage()`](https://developer.mozilla.org/en-US/docs/Web/API/Window/postMessage); perfect for our purposes, as we control both content domains.
+into the individual speedtest survey block.
+
+#### A Note on TypeScript
+
+Of important note is our usage of TypeScript throughout the entire codebase, rather than vanilla JavaScript: one must compile the `.ts` files down to native JavaScript code, and **only then** one may insert the generated `.js` files into Qualtrics.
+
+An important consequence of this is the usage of a call to `Qualtrics.SurveyEngine` being aliased to `qs`: this is done in an effort to reduce the number of `@ts-ignore` comments that must be used to circumvent the TypeScript compiler's complaints.
+
+Additionally, to prevent the TypeScript compiler from detecting namespace collisions, each `.ts` file **must** end in an `export` statement.
+
+#### `iframe` Communicado
+
+To facilitate communication between iframe and parent, we utilize the standard [`window.postMessage()`](https://developer.mozilla.org/en-US/docs/Web/API/Window/postMessage); perfect for our purposes, as we control both content domains.
 
 Below is an example of how the custom JavaScript may be called and thereby used in
 Qualtrics.
