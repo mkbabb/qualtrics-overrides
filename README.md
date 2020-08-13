@@ -19,7 +19,7 @@ In particular, these overrides are used to serve the files necessary for running
 
 ## `qualtrics.d.ts`
 
-A TypeScript definition, or deceleration file, used to provide a certain level of type safety when using Qualtrics' JavaScript API. Currently, the entire API is represented, but proper comments are describing their functionalities is lacking.
+A TypeScript definition, or deceleration file, used to provide a certain level of type safety when using Qualtrics' JavaScript API. Currently, the entire API is represented, but proper comments describing their respective functionalities is lacking.
 
 ## The Speedtest
 
