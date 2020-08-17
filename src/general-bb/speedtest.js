@@ -14,10 +14,6 @@ var receiveMessage = function (event) {
             qs.setEmbeddedData("ping", pingStatus);
             qs.setEmbeddedData("jitter", jitterStatus);
             qs.setEmbeddedData("ip_address", ip);
-            this.showNextButton();
-        }
-        else if (windowMessage.message === "next") {
-            this.clickNextButton();
         }
     }
 };
