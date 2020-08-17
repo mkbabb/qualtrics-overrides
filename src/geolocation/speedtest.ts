@@ -1,4 +1,4 @@
-interface IWindowMessage {
+interface WindowMessage {
     message: string;
     key: string;
     data: { [arg: string]: string };
@@ -12,7 +12,7 @@ const speedtestURL = "https://speedtest.fi.ncsu.edu/testing/sites/index.html";
 const WINDOW_KEY = "password";
 
 const receiveMessage = function (event: MessageEvent) {
-    const windowMessage: IWindowMessage = event.data;
+    const windowMessage: WindowMessage = event.data;
     console.log(windowMessage);
 
     if (windowMessage != null && windowMessage.key === WINDOW_KEY) {
@@ -42,7 +42,7 @@ qs.addOnload(function () {
     window.addEventListener("message", receiveMessage.bind(this));
     this.hideNextButton();
 
-    const windowMessage: IWindowMessage = {
+    const windowMessage: WindowMessage = {
         message: "start",
         key: "password",
         data: {}

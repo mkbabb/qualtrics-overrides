@@ -1,9 +1,12 @@
 // @ts-expect-error
 const qs: Qualtrics.SurveyEngine = Qualtrics.SurveyEngine;
 
-const getIpURL = "https://speedtest.fi.ncsu.edu/general_bb/backend/getIP.php?cors=1";
+const backendURL = "https://speedtest.fi.ncsu.edu/testing/scripts/librespeed/backend/";
+const getIp = "getIP.php?cors=1?id=${e://Field/ResponseID}";
 
-const writeIpInfo = function (this: Qualtrics.SurveyEngine) {
+const getIpURL = backendURL + getIp;
+
+const writeIpInfo = function () {
     const req = new XMLHttpRequest();
 
     req.onreadystatechange = () => {
@@ -14,7 +17,6 @@ const writeIpInfo = function (this: Qualtrics.SurveyEngine) {
             console.log(`Found IP address of ${ip_address}`);
 
             qs.setEmbeddedData("ip_address", ip_address);
-            this.showNextButton();
         }
     };
 
@@ -23,8 +25,7 @@ const writeIpInfo = function (this: Qualtrics.SurveyEngine) {
 };
 
 qs.addOnload(function () {
-    this.hideNextButton();
-    writeIpInfo.bind(this)();
+    writeIpInfo();
 });
 
 qs.addOnReady(function () {});

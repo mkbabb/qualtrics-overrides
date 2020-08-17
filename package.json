@@ -17,11 +17,13 @@
   },
   "homepage": "https://github.com/mkbabb/qualtrics_overrides#readme",
   "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^3.8.0",
+    "@typescript-eslint/parser": "^3.8.0",
     "eslint": "^7.6.0",
-    "eslint-config-google": "^0.14.0"
-  },
-  "dependencies": {
+    "eslint-config-google": "^0.14.0",
     "prettier": "^2.0.5",
+    "typescript": "^3.9.7",
     "typescript-eslint": "0.0.1-alpha.0"
-  }
+  },
+  "dependencies": {}
 }
