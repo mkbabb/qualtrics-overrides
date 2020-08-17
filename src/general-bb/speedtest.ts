@@ -7,13 +7,12 @@ interface WindowMessage {
 // @ts-expect-error
 const qs: Qualtrics.SurveyEngine = Qualtrics.SurveyEngine;
 const iframeId = "speedtest-frame";
-const speedtestURL = "https://speedtest.fi.ncsu.edu/testing/sites/index.html";
+const speedtestURL = "https://speedtest.fi.ncsu.edu/general_bb/sites/index.html";
 
 const WINDOW_KEY = "password";
 
 const receiveMessage = function (event: MessageEvent) {
     const windowMessage: WindowMessage = event.data;
-    console.log(windowMessage);
 
     if (windowMessage != null && windowMessage.key === WINDOW_KEY) {
         if (windowMessage.message === "complete") {
@@ -30,13 +29,14 @@ const receiveMessage = function (event: MessageEvent) {
             qs.setEmbeddedData("ping", pingStatus);
             qs.setEmbeddedData("jitter", jitterStatus);
             qs.setEmbeddedData("ip_address", ip);
+        } else if (windowMessage.message === "next") {
+            this.clickNextButton();
         }
     }
 };
 
 qs.addOnload(function () {
     window.addEventListener("message", receiveMessage.bind(this));
-    this.hideNextButton();
 
     const windowMessage: WindowMessage = {
         message: "start",

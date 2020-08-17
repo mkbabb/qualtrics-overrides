@@ -1,11 +1,10 @@
 // @ts-expect-error
 var qs = Qualtrics.SurveyEngine;
 var iframeId = "speedtest-frame";
-var speedtestURL = "https://speedtest.fi.ncsu.edu/testing/sites/index.html";
+var speedtestURL = "https://speedtest.fi.ncsu.edu/general_bb/sites/index.html";
 var WINDOW_KEY = "password";
 var receiveMessage = function (event) {
     var windowMessage = event.data;
-    console.log(windowMessage);
     if (windowMessage != null && windowMessage.key === WINDOW_KEY) {
         if (windowMessage.message === "complete") {
             var _a = windowMessage.data, dlStatus = _a.dlStatus, ulStatus = _a.ulStatus, pingStatus = _a.pingStatus, jitterStatus = _a.jitterStatus, ip = _a.ip;
@@ -15,11 +14,13 @@ var receiveMessage = function (event) {
             qs.setEmbeddedData("jitter", jitterStatus);
             qs.setEmbeddedData("ip_address", ip);
         }
+        else if (windowMessage.message === "next") {
+            this.clickNextButton();
+        }
     }
 };
 qs.addOnload(function () {
     window.addEventListener("message", receiveMessage.bind(this));
-    this.hideNextButton();
     var windowMessage = {
         message: "start",
         key: "password",
